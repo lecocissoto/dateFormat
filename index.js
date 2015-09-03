@@ -1,24 +1,26 @@
+'use strict';
 var util = require('util');
 
 module.exports = function(date){
-  var date = typeof date === 'string' ? new Date(date) : date;
+  var isStringOrTimestamp = typeof date === 'string' || typeof date === 'number';
+  date = isStringOrTimestamp ? new Date(date) : date;
+  var isDate = util.isDate(date) && date.getTime();
 
-  if(util.isDate(date)) {
+  if(isDate) {
     date = formatedDate(date);
     return date;
   } else{
-    throw Error("Tem que passar uma data");
+    throw new Error('Invalid Date');
   }
-}
+};
 
-function formatedDate(data){
-    var data = new Date(data);
-    var dia = data.getDate();
-    if (dia.toString().length == 1)
-      dia = "0"+dia;
-    var mes = data.getMonth()+1;
-    if (mes.toString().length == 1)
-      mes = "0"+mes;
-    var ano = data.getFullYear();
-    return dia+"/"+mes+"/"+ano;
+function formatedDate(date){
+  var date = date;
+  var day = date.getDate();
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+  day = day.toString().length == 1 ? '0'+day : day;
+  month = month.toString().length == 1 ? '0'+month : month;
+  date = util.format('%s/%s/%s', day, month, year);
+  return date;
 }
