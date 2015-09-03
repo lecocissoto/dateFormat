@@ -1,0 +1,11 @@
+{
+  "name": "dateFormat",
+  "version": "0.0.1",
+  "description": "Change the date for brazillian style",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec tests.js"
+  },
+  "author": "Leandro",
+  "license": "ISC"
+}
